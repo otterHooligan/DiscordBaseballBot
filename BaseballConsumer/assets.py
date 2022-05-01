@@ -37,17 +37,17 @@ team_colors = {
     "SEA": '005C5C',
     "SFG": 'FD5A1E',
     "STL": 'C41E3A',
-    "TBR": '8FBCE6',
+    "TB": '8FBCE6',
     "TEX": '003278',
     "TOR": '134A8E'
 }
 
 team_logos = {
-    "ARI": 'https://i.imgur.com/Eds8twD.png',
-    "ATL": 'https://i.imgur.com/HpP4OGZ.png',
-    "BAL": 'https://i.imgur.com/d2lNdFn.png',
-    "BOS": 'https://i.imgur.com/Eds8twD.png',
-    "CHC": 'https://i.imgur.com/Nw5XsQf.png',
+    "ARI": 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Arizona_Diamondbacks_logo.svg/1200px-Arizona_Diamondbacks_logo.svg.png',
+    "ATL": 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Atlanta_Braves_Insignia.svg/1200px-Atlanta_Braves_Insignia.svg.png',
+    "BAL": 'https://upload.wikimedia.org/wikipedia/en/thumb/7/75/Baltimore_Orioles_cap.svg/1200px-Baltimore_Orioles_cap.svg.png',
+    "BOS": 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/RedSoxPrimary_HangingSocks.svg/1200px-RedSoxPrimary_HangingSocks.svg.png',
+    "CHC": 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Chicago_Cubs_logo.svg/1200px-Chicago_Cubs_logo.svg.png',
     "CIN": 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Cincinnati_Reds_Logo.svg/1280px-Cincinnati_Reds_Logo.svg.png',
     "CLE": 'https://media.discordapp.net/attachments/545326310742949910/782810237882073179/fakeGuardiansLogo.png',
     "COL": 'https://i.imgur.com/vRLVXVv.png',
@@ -70,7 +70,7 @@ team_logos = {
     "SEA": 'https://i.imgur.com/ImngzeS.png',
     "SFG": 'https://i.imgur.com/cbYhBu3.png',
     "STL": 'https://i.imgur.com/1DQ3DQi.png',
-    "TBR": 'https://i.imgur.com/lma9b09.png',
+    "TB": 'https://i.imgur.com/lma9b09.png',
     "TEX": 'https://i.imgur.com/jtwUeNL.png',
     "TOR": 'https://i.imgur.com/DaGMIWl.png'
 }

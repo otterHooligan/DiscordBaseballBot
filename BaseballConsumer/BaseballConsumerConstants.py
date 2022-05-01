@@ -26,9 +26,9 @@ NO_GAME_STATUS_BODY = ""
 SCHEDULED_GAME_STATUS_TITLE = "We've got a game today"
 SCHEDULED_GAME_STATUS_BODY = ""
 
-PREGAME_TITLE = "PREGAME_STATUS_TITLE"
-PREGAME_DESCRIPTION = "PREGAME_STATUS_DESCRIPTION"
-PREGAME_BODY = "PREGAME_STATUS_BODY"
+PREGAME_TITLE = "ITS GAME DAY"
+PREGAME_DESCRIPTION = "How do you think they're going to let us down today?"
+PREGAME_BODY = "https://tenor.com/view/phillies-pug-phanatic-philly-tounge-gif-11742357"
 
 WARMUP_TITLE = 'Game\'s about to start, everyone get in here!'
 WARMUP_BODY = "" 
@@ -39,11 +39,11 @@ GAMESTARTED_BODY = ""
 
 RAINDELAY_TITLE = "Rain Delay"
 RAINDELAY_DESCRIPTION = "Game is currently in rain delay"
-RAINDELAY_BODY = "Rain rain, go away.  Come on back another day."
+RAINDELAY_BODY = "Don't they know its always sunny here?"
 
-SUSPENDEDRAIN_TITLE = "SUSPENDEDRAIN_PLACHOLDER_TITLE"
-SUSPENDEDRAIN_DESCRIPTION = "SUSPENDEDRAIN_PLACEHOLDER_DESCRIPTION"
-SUSPENDEDRAIN_BODY = "SUSPENDEDRAIN_PLACEHOLDER_BODY"
+SUSPENDEDRAIN_TITLE = "Rain Delay"
+SUSPENDEDRAIN_DESCRIPTION = "Booooooo rain"
+SUSPENDEDRAIN_BODY = "IDK man go watch some Phillies Clubhouse or something"
 
 COMPLETEDEARLYRAIN_TITLE = "COMPLETED_EARLY_RAIN_PLACEHOLDER_TITLE"
 COMPLETEDEARLYRAIN_DESCRIPTION = "COMPLETED_EARLY_RAIN_STATUS_PLACEHOLDER_DESCRIPTION"
@@ -51,12 +51,12 @@ COMPLETEDEARLYRAIN_BODY = "COMPLETED_EARLY_RAIN_STATUS_PLACEHOLDER_BODY"
 
 POSTPONED_TITLE = "{} Game Postponed"
 POSTPONED_DESCRIPTION = "Game's over, makeup to be played later"
-POSTPONED_BODY = "On the bright side, we didn't lose"
+POSTPONED_BODY = "On the bright side, we didn't lose (yet)"
 
-GAMEOVER_WIN_TITLE = 'GAMEOVER_WIN_PLACEHOLDER_TITLE'
-GAMEOVER_WIN_BODY = 'GAMEOVER_WIN_PLACEHOLDER_BODY'
-GAMEOVER_LOSS_TITLE = 'GAMEOVER_LOSS_PLACEHOLDER_TITLE'
-GAMEOVER_LOSS_BODY = 'GAMEOVER_LOSS_PLACEHOLDER_BODY'
+GAMEOVER_WIN_TITLE = 'Phils win!!'
+GAMEOVER_WIN_BODY = 'https://tenor.com/view/philadelphia-phillies-philly-baseball-ring-the-bell-gif-17900279'
+GAMEOVER_LOSS_TITLE = 'Welp.'
+GAMEOVER_LOSS_BODY = 'https://images-ext-1.discordapp.net/external/El8M8OWl8-ukJsDosSYcuPbdfdbeaHGXd7lJ6t5N974/https/media.tenor.com/nKKjbfg153wAAAPo/realmuto-phillies.mp4'
 
 FINAL_TITLE = "Current Season Standings"
 FINAL_BODY = ""
@@ -65,13 +65,13 @@ GAMEOVERTIED_TITLE = "GAME_OVER_TIED_STATUS_PLACEHOLDER_TITLE"
 GAMEOVERTIED_DESCRIPTION = "GAME_OVER_TIED_STATUS_PLACEHOLDER_DESCRIPTION"
 GAMEOVERTIED_BODY = "GAME_OVER_TIED_STATUS_PLACEHOLDER_BODY"
 
-FINALTIED_TITLE = "FINAL_TIED_STATUS_PLACEHOLDER_TITLE"
-FINALTIED_DESCRIPTION = "FINAL_TIED_STATUS_PLACEHOLDER_DESCRIPTION"
-FINALTIED_BODY = "FINAL_TIED_STATUS_PLACEHOLDER_BODY"
+FINALTIED_TITLE = "Since when can games end in a tie?"
+FINALTIED_DESCRIPTION = "Does this happen outside of spring training?"
+FINALTIED_BODY = "https://tenor.com/view/confused-dog-what-i-dont-get-it-fluffy-gif-13613894"
 
-SEVENTH_INNING_STRETCH = "SEVENTH_INNING_STRETCH_PLACEHOLDER"
-MANAGER_CHALLENGE_TITLE = "MANAGER_CHALLENGE_PLACEHOLDER_TITLE"
-MANAGER_CHALLENGE_DESCRIPTION = "MANAGER_CHALLENGE_PLACEHOLDER_DESCRIPTION"
+SEVENTH_INNING_STRETCH = "https://tenor.com/view/philadelphia-phillies-phillie-phanatic-mlb-mascots-mascot-gif-16118965"
+MANAGER_CHALLENGE_TITLE = "Challenge that shit Joe"
+MANAGER_CHALLENGE_DESCRIPTION = "https://tenor.com/view/ejection-get-out-of-here-joe-girardi-phillies-cardinals-gif-21357480"
 MANAGER_CHALLENGE_BODY = "Coach has thrown the red challenge flag onto the field"
 DELAYEDSTART_TITLE = "Start of game is delayed"
 DELAYEDSTART_DESCRIPTION = "Uhhhh... I guess let's play a game while we wait.   I spy with my robot eye, something... 1s and 0s"

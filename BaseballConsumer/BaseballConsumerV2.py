@@ -175,6 +175,7 @@ class BaseballUpdaterBotV2:
                             info['balls'] = play['count']['balls']
                             info['strikes'] = play['count']['strikes']
                             info['play_events'] = play['playEvents']
+                            info['live_player_stats'] = {**liveData['boxscore']['teams']['away']['players'], **liveData['boxscore']['teams']['home']['players']}
 
                             # Update strikeout tracker
                             if info['event'] == 'Strikeout':
@@ -384,34 +385,29 @@ class BaseballUpdaterBotV2:
             embed_color = discord.Color(value=int(assets.team_colors[info['awayTeamAbbv'].upper()], 16))
             embed_icon = assets.team_logos[info['awayTeamAbbv'].upper()]
 
-        title = f"{info['awayTeamName']} @ {info['homeTeamName']} {datetime.today().month}/{datetime.today().day}/{datetime.today().year}"
-        description = f"{info['inningHalf'].title()} {info['inning']} - {info['outs']} out(s)\n"
-        description += f"{info['batter']['fullName']} batting against {info['pitcher']['fullName']}\n\n"
-        description += f"{info['description']}\n\n"
-        description += f"{info['awayTeamAbbv'].upper()} {info['awayStats_linescore']['runs']} - {info['homeTeamAbbv'].upper()} {info['homeStats_linescore']['runs']}"
+        author = f"{info['awayTeamName']} @ {info['homeTeamName']} {datetime.today().month}/{datetime.today().day}/{datetime.today().year}"
+        title = f"{info['inningHalf'][0].upper()}{info['inning']} - {info['outs']} out(s)\n"
+        description = info['description']
+        pitcher_stats = statsapi.player_stat_data(info['pitcher']['id'], group="pitching", type="season")
+        batter_stats = statsapi.player_stat_data(info['batter']['id'], group="hitting", type="season")
 
-        embed = discord.Embed(description=description, color=embed_color)
-        embed.set_author(name=title, icon_url=embed_icon)
-        embed.set_thumbnail(url=assets.obc_img[f"{int(info['manOnFirst'])}{int(info['manOnSecond'])}{int(info['manOnThird'])}"])
+        embed = discord.Embed(title=title, description=description, color=embed_color)
+        embed.set_author(name=author, icon_url=embed_icon)
+        embed.set_thumbnail(url=assets.obc_img[f"{int(info['manOnThird'])}{int(info['manOnSecond'])}{int(info['manOnFirst'])}"])
         plays = '```'
         for event in info['play_events']:
             if event['isPitch']:
                 plays += f"{event['count']['balls']}-{event['count']['strikes']} {event['details']['description']} {event['pitchData']['startSpeed']} {event['details']['type']['description']}\n"
         plays += '```'
-        embed.add_field(name='Plays', value=plays)
-        return embed
 
-        return "```" \
-               "{}\n" \
-               "{}{}\n" \
-               "```\n" \
-               "{}" \
-               "{}".format(self.formatLinescoreForDiscord(info)
-                                          if not self.gameEventInningBeforeCurrentLinescoreInning(info)
-                                          else self.formatLinescoreCatchingUpForDiscord(info),
-                           self.formatPitchCount(info), info['description'],
-                           self.funEmoji(info),
-                           self.endOfInning(info))
+        batter_stats = info['live_player_stats'][f"ID{info['batter']['id']}"]
+        pitcher_stats = info['live_player_stats'][f"ID{info['pitcher']['id']}"]
+
+        embed.add_field(name='Plays', value=plays, inline=False)
+        embed.add_field(name="Score", value=f"```{info['fullLinescoreString']}```", inline=False)
+        embed.add_field(name=f"{info['pitcher']['fullName']}", value=f"**{pitcher_stats['stats']['pitching']['inningsPitched']}** IP | **{pitcher_stats['stats']['pitching']['numberOfPitches']}** TP ({pitcher_stats['stats']['pitching']['balls']} Balls {pitcher_stats['stats']['pitching']['strikes']} Strikes)", inline=True)
+        embed.add_field(name=f"{info['batter']['fullName']}", value=f"**{batter_stats['stats']['batting']['hits']}** for **{batter_stats['stats']['batting']['atBats']}** **{batter_stats['stats']['batting']['baseOnBalls']}** BB **{batter_stats['stats']['batting']['runs']}** R **{batter_stats['stats']['batting']['rbi']}** RBI", inline=True)
+        return embed
 
     def formatLinescoreForDiscord(self, info):
         return "{}   ┌───┬──┬──┬──┐\n" \

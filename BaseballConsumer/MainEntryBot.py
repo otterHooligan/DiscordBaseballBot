@@ -7,13 +7,17 @@ This module performs the start-up, login and reads out the settings to configure
 the bot.
 """
 import json
+
+import aiohttp
 import discord
+import os
 from BaseballConsumerV2 import BaseballUpdaterBotV2
 
 SETTINGS_FILE = './discordSettings.doNotUpload.json'
 
 client = discord.Client()
 # logging.basicConfig(level=logging.DEBUG)
+
 
 def read_settings():
     error_msg = []
@@ -40,6 +44,7 @@ def read_settings():
         exit("Exiting due to missing setting")
     return 0
 
+
 async def my_background_task():
     baseballUpdaterBotV2 = BaseballUpdaterBotV2()
 
@@ -54,7 +59,6 @@ async def my_background_task():
         except (aiohttp.client_exceptions.ClientConnectorError, requests.exceptions.ConnectionError, urllib3.exceptions.MaxRetryError, urllib3.exceptions.NewConnectionError, OSError) as e:
             print("timeout error trying something: ", e)
             await asyncio.sleep(60)
-
 
 
 @client.event

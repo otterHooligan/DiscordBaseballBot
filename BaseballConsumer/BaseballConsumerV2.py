@@ -1,4 +1,4 @@
-'''
+"""
 
 BASEBALL GAME THREAD BOT
 
@@ -7,7 +7,7 @@ KimbaWLion
 
 Please contact us on Github if you have any questions.
 
-'''
+"""
 
 import statsapi
 from datetime import datetime, timedelta
@@ -17,8 +17,10 @@ import discord
 import json
 import BaseballConsumerConstants as constants
 from TeamAndStandingsUtilities import get_division_for_teamId
+import assets
 
 SETTINGS_FILE = './settings.json'
+
 
 class BaseballUpdaterBotV2:
 
@@ -57,7 +59,7 @@ class BaseballUpdaterBotV2:
                     try: awayTeamInfo['game_score'] = game['linescore']['teams']['away']['runs']
                     except KeyError: awayTeamInfo['game_score'] = 0
 
-                        # Add team records
+                    # Add team records
                     homeTeamInfo['wins'] = game['teams']['home']['leagueRecord']['wins']
                     homeTeamInfo['losses'] = game['teams']['home']['leagueRecord']['losses']
                     awayTeamInfo['wins'] = game['teams']['away']['leagueRecord']['wins']
@@ -168,6 +170,11 @@ class BaseballUpdaterBotV2:
 
                             # playType isn't working, do it yourself
                             info['playTypeActual'] = self.getPlayType(info['description'])
+                            info['batter'] = play['matchup']['batter']
+                            info['pitcher'] = play['matchup']['pitcher']
+                            info['balls'] = play['count']['balls']
+                            info['strikes'] = play['count']['strikes']
+                            info['play_events'] = play['playEvents']
 
                             # Update strikeout tracker
                             if info['event'] == 'Strikeout':
@@ -187,14 +194,17 @@ class BaseballUpdaterBotV2:
                                     strikeoutTracker['home'] = currentStrikeouts
                             info['strikeoutTracker'] = strikeoutTracker
 
-
                             # Generate ID unique for each play
                             info['id'] = ''.join([info['startTime'].split(":")[0],';',info['outs'],';',info['inning'],';',info['homeScore'],';',info['awayScore'],';',info['description'].replace(" ", "")])
 
                             # if ID is not in log, add it to log and then post update on Discord
                             if info['id'] not in idsOfPrevEvents:
                                 self.printToLog(info)
-                                await channel.send(self.commentOnDiscordEvent(info))
+                                temp = self.commentOnDiscordEvent(info)
+                                if type(temp) == discord.Embed:
+                                    await channel.send(embed=temp)
+                                else:
+                                    await channel.send(temp)
 
             await asyncio.sleep(how_long_to_wait_in_sec)
 
@@ -367,6 +377,30 @@ class BaseballUpdaterBotV2:
         return comment
 
     def formatGameEventForDiscord(self, info):
+        if info['inningHalf'] == 'bottom':
+            embed_color = discord.Color(value=int(assets.team_colors[info['homeTeamAbbv'].upper()], 16))
+            embed_icon = assets.team_logos[info['homeTeamAbbv'].upper()]
+        else:
+            embed_color = discord.Color(value=int(assets.team_colors[info['awayTeamAbbv'].upper()], 16))
+            embed_icon = assets.team_logos[info['awayTeamAbbv'].upper()]
+
+        title = f"{info['awayTeamName']} @ {info['homeTeamName']} {datetime.today().month}/{datetime.today().day}/{datetime.today().year}"
+        description = f"{info['inningHalf'].title()} {info['inning']} - {info['outs']} out(s)\n"
+        description += f"{info['batter']['fullName']} batting against {info['pitcher']['fullName']}\n\n"
+        description += f"{info['description']}\n\n"
+        description += f"{info['awayTeamAbbv'].upper()} {info['awayStats_linescore']['runs']} - {info['homeTeamAbbv'].upper()} {info['homeStats_linescore']['runs']}"
+
+        embed = discord.Embed(description=description, color=embed_color)
+        embed.set_author(name=title, icon_url=embed_icon)
+        embed.set_thumbnail(url=assets.obc_img[f"{int(info['manOnFirst'])}{int(info['manOnSecond'])}{int(info['manOnThird'])}"])
+        plays = '```'
+        for event in info['play_events']:
+            if event['isPitch']:
+                plays += f"{event['count']['balls']}-{event['count']['strikes']} {event['details']['description']} {event['pitchData']['startSpeed']} {event['details']['type']['description']}\n"
+        plays += '```'
+        embed.add_field(name='Plays', value=plays)
+        return embed
+
         return "```" \
                "{}\n" \
                "{}{}\n" \
